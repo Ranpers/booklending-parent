@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.yiran.booklending.mapper.UserMapper">
+    <resultMap id="userMap" type="pers.yiran.booklending.entity.User">
+        <id property="id" column="user_id"/>
+        <result property="email" column="user_email"/>
+        <result property="password" column="user_password"/>
+        <result property="username" column="user_name"/>
+        <result property="role" column="user_role"/>
+        <result property="status" column="user_status"/>
+    </resultMap>
+    <select id="login" resultMap="userMap">
+        SELECT * FROM user WHERE user_email = #{email} AND user_status != '1' LIMIT 1;
+    </select>
+</mapper>

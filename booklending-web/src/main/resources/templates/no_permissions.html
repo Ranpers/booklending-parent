@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>无权限</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+    .container {
+      margin: 50px auto;
+      max-width: 600px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    a {
+      color: #0088cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script type="text/javascript">
+    let count = 8;
+    const countdown = setInterval(function () {
+      count--;
+      document.getElementById("countdown").innerHTML = String(count);
+      if (count === 0) {
+        clearInterval(countdown);
+        history.go(-1);
+      }
+    }, 1000); // 每秒钟执行一次倒计时
+  </script>
+</head>
+<body>
+<div class="container">
+  <h1>无权限访问当前页面</h1>
+  <p>您没有访问该页面的权限，请联系管理员获取权限。</p >
+  <p>页面将在<span id="countdown">8</span>秒后自动返回跳转前的页面。</p >
+</div>
+</body>
+</html>
