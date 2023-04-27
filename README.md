@@ -11,4 +11,6 @@
 
 &emsp; Maven: 3.6.3 Ⓜ️
 
-&emsp; For specific dependent versions, please refer to the pom.xml file under the booklending-parent module. 🧐
+&emsp; For specific dependent versions, 🔍
+
+&emsp; please refer to the pom.xml file under the booklending-parent module. 🧐
