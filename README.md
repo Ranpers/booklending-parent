@@ -1,5 +1,5 @@
 # booklending-parent 😊
-### &emsp; 🆒 This is a book lending system based on SpringBoot, MyBatis, Thymeleaf, Druid (Alibaba), MySQL and other technologies.
+### &emsp; 🆒 This is a book lending system based on SpringBoot, Thymeleaf, MyBatis, Druid (Alibaba), MySQL and other technologies.
 
 ### &emsp; ⚠️ Follows the GNU GPLv3 open source license. ⚠️
 
