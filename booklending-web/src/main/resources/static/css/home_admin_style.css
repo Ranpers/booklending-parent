@@ -1,1 +1,44 @@
-
+.list-group .sub-menu {
+    display: none;
+}
+.list-group-item.active i {
+    color: #fff;
+}
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    background-color: #f8f9fa;
+}
+.list-group .active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.list-group-item.list-group-item-action.active a {
+    color: #fff;
+}
+.list-group-item.list-group-item-action.active i {
+    color: #fff;
+}
+.list-group-item.list-group-item-action a:focus,
+.list-group-item.list-group-item-action a:hover {
+    text-decoration: none;
+}
+.list-group-item.list-group-item-action .sub-menu .list-group-item-action a {
+    font-size: 0.9rem;
+    padding-left: 40px;
+}
+.list-group-item.list-group-item-action .sub-menu .list-group-item-action a:hover {
+    background-color: #f8f9fa;
+}
+.list-group-item.list-group-item-action .sub-menu .list-group-item-action.active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.list-group-item.list-group-item-action .sub-menu .list-group-item-action.active a {
+    color: #fff;
+}
+.list-group-item.list-group-item-action .sub-menu .list-group-item-action.active i {
+    color: #fff;
+}
+.list-group-item.list-group-item-action .sub-menu {
+    margin-top: 5px;
+}
