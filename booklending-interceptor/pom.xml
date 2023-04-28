@@ -18,6 +18,11 @@
             <artifactId>booklending-pojo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>pers.yiran</groupId>
+            <artifactId>booklending-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--SpringBoot Web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
