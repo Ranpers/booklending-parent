@@ -3,9 +3,14 @@ package pers.yiran.booklending.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import pers.yiran.booklending.common.Access;
+import pers.yiran.booklending.common.AccessLevel;
 import pers.yiran.booklending.entity.User;
+
+import java.lang.reflect.Method;
 
 /**
  * @author Yiran
@@ -16,32 +21,27 @@ public class UnauthorizedAccessInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
-        //获取请求的路径
-        String uri = request.getRequestURI();
-        //如果用户是已登录状态，判断访问的资源是否有权限
-        int need;
-        if (uri.contains("admin")) {
-            need = 0;
-        } else if (uri.contains("employee")) {
-            need = 1;
-        } else {
-            need = 2;
-        }
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        Access access = method.getAnnotation(Access.class);
         if (user != null) {
-            if (user.getRole() <= need) {
+            if (access == null) {
+                return true;
+            }
+            if (access.level() == AccessLevel.ALL) {
+                return true;
+            }
+            if (access.level().getCode() <= user.getRole()) {
                 return true;
             } else {
                 request.getRequestDispatcher("/permission/no_permissions").forward(request, response);
             }
-        }
-        //其他情况都直接跳转到登录页面
-        else {
+        } else {
             request.getSession().setAttribute("isRedirect", true);
             response.sendRedirect("/booklending/user/login");
         }
         return false;
     }
-
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);

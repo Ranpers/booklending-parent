@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pers.yiran.booklending.common.Access;
+import pers.yiran.booklending.common.AccessLevel;
 import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.service.UserService;
 
@@ -32,7 +34,7 @@ public class UserController {
     public void toHomePage(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
         try {
-            if (user.getRole() == 0) {
+            if (user.getRole() == 2) {
                 response.sendRedirect("/booklending/admin/home");
             } else if (user.getRole() == 1) {
                 response.sendRedirect("/booklending/employee/home");
@@ -44,6 +46,7 @@ public class UserController {
         }
     }
 
+    @Access(level = AccessLevel.ALL)
     @GetMapping("/login")
     public String toLoginPage(HttpServletRequest request) {
         boolean isRedirect = request.getSession().getAttribute("isRedirect") != null;
@@ -57,6 +60,7 @@ public class UserController {
     /**
      * 登录验证
      */
+    @Access(level = AccessLevel.ALL)
     @PostMapping("/login_verification")
     public void login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         List<Object> list = userService.login(user);
@@ -75,6 +79,7 @@ public class UserController {
         }
     }
 
+    @Access(level = AccessLevel.ALL)
     @RequestMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response){
         request.getSession().removeAttribute("USER_SESSION");
