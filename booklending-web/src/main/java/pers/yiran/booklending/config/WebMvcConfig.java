@@ -21,7 +21,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(unauthorizedAccessInterceptor).
                 addPathPatterns("/**").
                 excludePathPatterns(
-                        "/user/login","/user/login_verification",
                         "/**/*.html", "/**/*.js", "/**/*.css",
                         "/**/*.png", "/**/*.jpg");
     }
