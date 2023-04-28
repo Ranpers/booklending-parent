@@ -32,8 +32,10 @@ public class UserController {
     public void toHomePage(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
         try {
-            if ("ADMIN".equals(user.getRole())) {
+            if (user.getRole() == 0) {
                 response.sendRedirect("/booklending/admin/home");
+            } else if (user.getRole() == 1) {
+                response.sendRedirect("/booklending/employee/home");
             } else {
                 response.sendRedirect("/booklending/reader/home");
             }
@@ -70,6 +72,16 @@ public class UserController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response){
+        request.getSession().removeAttribute("USER_SESSION");
+        try {
+            response.sendRedirect("/booklending/user/login");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
