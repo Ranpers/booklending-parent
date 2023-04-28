@@ -15,6 +15,6 @@ public class User {
     private String username;  //用户名称
     private String password;  //用户密码
     private String email;     //用户邮箱（用户账号）
-    private String role;      //用户角色
+    private Integer role;      //用户角色
     private String status;    //用户状态
 }
