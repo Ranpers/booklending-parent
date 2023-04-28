@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
         }
         return list;
     }
+
+    @Override
+    public Integer delete(int userId) {
+        return null;
+    }
 }

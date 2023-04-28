@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface UserService {
     List<Object> login(User user);
+    Integer delete(int userId);
 }

@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @Access(level = AccessLevel.ALL)
-    @RequestMapping("/logout")
+    @GetMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response){
         request.getSession().removeAttribute("USER_SESSION");
         try {
@@ -88,5 +88,11 @@ public class UserController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Access(level = AccessLevel.ADMIN)
+    @GetMapping("/delete")
+    public void delete(){
+
     }
 }
