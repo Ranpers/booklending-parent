@@ -19,15 +19,19 @@ public class UnauthorizedAccessInterceptor implements HandlerInterceptor {
         //获取请求的路径
         String uri = request.getRequestURI();
         //如果用户是已登录状态，判断访问的资源是否有权限
+        int need;
+        if (uri.contains("admin")) {
+            need = 0;
+        } else if (uri.contains("employee")) {
+            need = 1;
+        } else {
+            need = 2;
+        }
         if (user != null) {
-            if (uri.contains("admin")) {
-                if ("ADMIN".equals(user.getRole())) {
-                    return true;
-                } else {
-                    request.getRequestDispatcher("/permission/no_permissions").forward(request, response);
-                }
-            } else {
+            if (user.getRole() <= need) {
                 return true;
+            } else {
+                request.getRequestDispatcher("/permission/no_permissions").forward(request, response);
             }
         }
         //其他情况都直接跳转到登录页面
