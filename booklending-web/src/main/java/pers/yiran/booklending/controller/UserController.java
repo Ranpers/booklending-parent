@@ -5,10 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
 import pers.yiran.booklending.entity.User;
@@ -19,11 +16,14 @@ import java.util.List;
 
 /**
  * @author Yiran
+ * 用户包括 Reader、Employee、Admin
+ * 此类下方法为各类用户所共有的操作
  */
 @Controller
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;
+    private final ObjectMapper om = new ObjectMapper();
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -64,7 +64,6 @@ public class UserController {
     @PostMapping("/login_verification")
     public void login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         List<Object> list = userService.login(user);
-        ObjectMapper om = new ObjectMapper();
         try {
             if ((int) list.get(0) == 0) {
                 request.getSession().setAttribute("USER_SESSION", list.get(1));
@@ -81,7 +80,7 @@ public class UserController {
 
     @Access(level = AccessLevel.ALL)
     @GetMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response){
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("USER_SESSION");
         try {
             response.sendRedirect("/booklending/user/login");
@@ -91,8 +90,14 @@ public class UserController {
     }
 
     @Access(level = AccessLevel.ADMIN)
-    @GetMapping("/delete")
-    public void delete(){
-
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable int id, HttpServletResponse response) {
+        if (userService.delete(id) == 1) {
+            try {
+                response.getWriter().write(om.writeValueAsString("delete_success"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

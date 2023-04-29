@@ -11,4 +11,5 @@ import pers.yiran.booklending.entity.User;
 @Mapper
 public interface UserMapper {
     User login(User user);
+    Integer delete(int id);
 }

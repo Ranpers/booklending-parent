@@ -11,6 +11,9 @@
         <result property="role" column="user_role"/>
         <result property="status" column="user_status"/>
     </resultMap>
+    <delete id="delete">
+        DELETE FROM user WHERE user_id = #{id};
+    </delete>
     <select id="login" resultMap="userMap">
         SELECT * FROM user WHERE user_email = #{email} AND user_status != '1' LIMIT 1;
     </select>
