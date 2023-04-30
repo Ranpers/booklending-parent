@@ -31,22 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/home")
-    public void toHomePage(HttpServletRequest request, HttpServletResponse response) {
+    public String toHomePage(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
-        try {
-            if (user.getRole() == 2) {
-                response.sendRedirect("/booklending/admin/home");
-            } else if (user.getRole() == 1) {
-                response.sendRedirect("/booklending/employee/home");
-            } else {
-                response.sendRedirect("/booklending/reader/home");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (user.getRole() == 2) {
+            return "home_admin";
+        } else if (user.getRole() == 1) {
+            return "home_employee";
+        } else {
+            return "home_reader";
         }
     }
 
-    @Access(level = AccessLevel.ALL)
     @GetMapping("/login")
     public String toLoginPage(HttpServletRequest request) {
         boolean isRedirect = request.getSession().getAttribute("isRedirect") != null;
@@ -60,7 +55,6 @@ public class UserController {
     /**
      * 登录验证
      */
-    @Access(level = AccessLevel.ALL)
     @PostMapping("/login_verification")
     public void login(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         List<Object> list = userService.login(user);
