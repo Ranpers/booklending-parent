@@ -20,6 +20,9 @@ import java.lang.reflect.Method;
 public class UnauthorizedAccessInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
         User user = (User) request.getSession().getAttribute("USER_SESSION");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
@@ -42,6 +45,7 @@ public class UnauthorizedAccessInterceptor implements HandlerInterceptor {
         }
         return false;
     }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
