@@ -38,8 +38,6 @@
 </main>
 <script type="text/javascript" th:inline="javascript">
     const isRedirect = /*[[${isRedirect}]]*/ "0";
-    console.log(isRedirect);
-
     $(document).ready(function () {
         window.setTimeout(function (){
             if (isRedirect === "1") {

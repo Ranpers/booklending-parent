@@ -18,6 +18,12 @@
             <artifactId>booklending-mapper</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!--PageHelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

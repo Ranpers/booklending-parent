@@ -12,3 +12,7 @@ server:
     context-path: /booklending
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true

@@ -1,5 +1,7 @@
 package pers.yiran.booklending.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pers.yiran.booklending.entity.User;
@@ -45,5 +47,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer delete(int userId) {
         return userMapper.delete(userId);
+    }
+
+    @Override
+    public List<Object> getUserList(int pageNum, int role) {
+        Page<User> page = PageHelper.startPage(pageNum, 5);
+        List<Object> list = new ArrayList<>();
+        list.add(page.getPages());
+        list.add(userMapper.getUserList(role));
+        return list;
     }
 }

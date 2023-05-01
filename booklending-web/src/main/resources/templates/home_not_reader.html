@@ -23,20 +23,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">读者管理</a>
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">读者管理
+                </a>
                 <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">读者列表</a>
-                    <a class="dropdown-item" href="#">删除读者</a>
-                    <a class="dropdown-item" href="#">问题处理</a>
+                    <button class="dropdown-item" value="readers/">读者列表</button>
+                    <button class="dropdown-item" value="reader/question/">问题处理</button>
                 </div>
             </li>
-            <li class="nav-item dropdown">
+            <li th:if="${session.USER_SESSION.role} == '2'" class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="employeeDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">员工管理</a>
                 <div class="dropdown-menu" aria-labelledby="employeeDropdown">
                     <a class="dropdown-item" href="#">员工列表</a>
-                    <a class="dropdown-item" href="#">删除员工</a>
                     <a class="dropdown-item" href="#">问题处理</a>
                 </div>
             </li>
@@ -45,7 +44,6 @@
                    aria-haspopup="true" aria-expanded="false">图书管理</a>
                 <div class="dropdown-menu" aria-labelledby="bookDropdown">
                     <a class="dropdown-item" href="#">图书列表</a>
-                    <a class="dropdown-item" href="#">删除图书</a>
                     <a class="dropdown-item" href="#">问题处理</a>
                 </div>
             </li>
@@ -75,7 +73,27 @@
     </div>
 </nav>
 <div id="pageContent">
-    hello
 </div>
+<script>
+    let currentPage = 1;
+    function changePage(url, page) {
+        // 发送AJAX请求获取数据
+        $.ajax({
+            url: url + page, // 后台接口地址
+            success: function (data) {
+                // 将数据渲染到页面
+                $("#pageContent").html(data);
+            }
+        });
+    }
+
+    $(function () {
+        $("button").click(function () {
+            currentPage = 1;
+            url = $(this).attr("value");
+            changePage(url, 1);
+        });
+    });
+</script>
 </body>
 </html>

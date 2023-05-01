@@ -47,6 +47,12 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>3.0.0</version>
             </dependency>
+            <!--PageHelper-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>1.4.6</version>
+            </dependency>
             <!--Druid数据库连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
