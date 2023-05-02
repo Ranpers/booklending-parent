@@ -63,7 +63,6 @@ public class UserController {
                 // TODO: 不要直接存储密码，考虑进行加密！
                 request.getSession().setAttribute("USER_SESSION", list.get(1));
                 response.getWriter().write(om.writeValueAsString("login_success"));
-                userService.idRoleInit();
             } else if ((int) list.get(0) == 1) {
                 response.getWriter().write(om.writeValueAsString("email_not_exist"));
             } else {
