@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * @author Yiran
  */
+@SuppressWarnings("all")
 public class IdRole {
     private IdRole(){}
     private static Map<Integer, Integer> idRoleMap = new HashMap<>();

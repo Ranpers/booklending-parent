@@ -63,12 +63,6 @@ public class UserServiceImpl implements UserService {
     public Integer update(User user) {
         return userMapper.update(user);
     }
-
-    @Override
-    public void idRoleInit() {
-        IdRole.setIdRoleMap(userMapper.idRoleInit());
-    }
-
     @Override
     public List<Object> getUserList(int pageNum, int role) {
         List<Object> list = new ArrayList<>();

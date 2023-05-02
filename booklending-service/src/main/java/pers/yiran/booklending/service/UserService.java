@@ -13,6 +13,5 @@ public interface UserService {
     List<Object> login(User user);
     Integer delete(int userId);
     Integer update(User user);
-    void idRoleInit();
     List<Object> getUserList(int page, int role);
 }

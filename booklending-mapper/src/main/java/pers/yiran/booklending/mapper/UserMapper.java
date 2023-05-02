@@ -20,6 +20,4 @@ public interface UserMapper {
     Integer delete(int id);
     Integer update(User user);
     List<User> getUserList(int row);
-    @MapKey("user_id")
-    Map<Integer, Integer> idRoleInit();
 }
