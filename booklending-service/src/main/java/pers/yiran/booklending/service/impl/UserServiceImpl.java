@@ -4,7 +4,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pers.yiran.booklending.common.IdRole;
 import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.mapper.UserMapper;
 import pers.yiran.booklending.model.UserModel;
