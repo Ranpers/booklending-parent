@@ -4,12 +4,15 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pers.yiran.booklending.common.IdRole;
 import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.mapper.UserMapper;
+import pers.yiran.booklending.model.UserModel;
 import pers.yiran.booklending.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Yiran
@@ -22,6 +25,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+    @Override
+    public UserModel select(int role, int id) {
+        User user = new User();
+        user.setRole(role);
+        user.setId(id);
+        return userMapper.select(user);
     }
 
     @Override
@@ -50,11 +61,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer update(User user) {
+        return userMapper.update(user);
+    }
+
+    @Override
+    public void idRoleInit() {
+        IdRole.setIdRoleMap(userMapper.idRoleInit());
+    }
+
+    @Override
     public List<Object> getUserList(int pageNum, int role) {
-        Page<User> page = PageHelper.startPage(pageNum, 5);
         List<Object> list = new ArrayList<>();
-        list.add(page.getPages());
+        Page<User> page = PageHelper.startPage(pageNum, 5);
         list.add(userMapper.getUserList(role));
+        list.add(page.getPages());
         return list;
     }
 }

@@ -34,7 +34,7 @@ public class UserController {
     @GetMapping("/home")
     public String toHomePage(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
-        if(user.getRole() == 0) {
+        if (user.getRole() == 0) {
             return "home_reader";
         } else {
             return "home_not_reader";
@@ -63,6 +63,7 @@ public class UserController {
                 // TODO: 不要直接存储密码，考虑进行加密！
                 request.getSession().setAttribute("USER_SESSION", list.get(1));
                 response.getWriter().write(om.writeValueAsString("login_success"));
+                userService.idRoleInit();
             } else if ((int) list.get(0) == 1) {
                 response.getWriter().write(om.writeValueAsString("email_not_exist"));
             } else {
@@ -89,30 +90,10 @@ public class UserController {
     public void delete(@PathVariable int id, HttpServletResponse response) {
         if (userService.delete(id) == 1) {
             try {
-                response.getWriter().write(om.writeValueAsString("delete_success_0"));
+                response.getWriter().write(om.writeValueAsString("delete_success"));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    @Access(level = AccessLevel.EMPLOYEE)
-    @GetMapping("/readers/{page}")
-    public String getReaderList(@PathVariable int page, HttpServletRequest request){
-        List<Object> list = userService.getUserList(page, 0);
-        request.setAttribute("users", list.get(1));
-        request.setAttribute("maxPage", list.get(0));
-        request.setAttribute("role", "reader");
-        return "users";
-    }
-
-    @Access(level = AccessLevel.ADMIN)
-    @GetMapping("/employees/{page}")
-    public String getEmployeeList(@PathVariable int page, HttpServletRequest request){
-        List<Object> list = userService.getUserList(page, 1);
-        request.setAttribute("users", list.get(1));
-        request.setAttribute("maxPage", list.get(0));
-        request.setAttribute("role", "employee");
-        return "users";
     }
 }
