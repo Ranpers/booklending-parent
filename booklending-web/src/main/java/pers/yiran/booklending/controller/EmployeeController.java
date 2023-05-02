@@ -63,6 +63,7 @@ public class EmployeeController {
     public void getSelectReaderData(@PathVariable int id, HttpServletResponse response){
         UserModel user = userService.select(1, id);
         try {
+            response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(om.writeValueAsString(user));
         } catch (IOException e) {
             throw new RuntimeException(e);
