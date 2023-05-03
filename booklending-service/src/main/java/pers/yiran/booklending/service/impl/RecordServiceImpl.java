@@ -36,7 +36,7 @@ public class RecordServiceImpl implements RecordService {
     public List<Object> getPersonalRecordList(int userId, int pageNum, String status) {
         List<Object> list = new ArrayList<>();
         Page<RecordModel> page = PageHelper.startPage(pageNum, 8);
-        List<RecordModel> recordModels = null;
+        List<RecordModel> recordModels;
         if(status == null){
             recordModels = recordMapper.getPersonalRecordList(userId);
         } else {

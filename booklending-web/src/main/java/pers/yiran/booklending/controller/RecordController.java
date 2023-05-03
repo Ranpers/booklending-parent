@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/record")
 public class RecordController {
-    RecordService recordService;
+    private RecordService recordService;
 
     @Autowired
     public void setRecordService(RecordService recordService) {
