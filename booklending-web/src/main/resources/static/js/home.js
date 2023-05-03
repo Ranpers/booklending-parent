@@ -1,5 +1,7 @@
 let currentPage = 1;
-
+$.ajaxSetup({
+    cache: false
+})
 /**
  * 对子页面进行刷新 项目中多处复用！
  * @param url

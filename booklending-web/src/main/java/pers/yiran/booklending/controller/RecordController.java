@@ -38,9 +38,21 @@ public class RecordController {
     @RequestMapping("/personal_list/{page}")
     public String getPersonalRecordList(@PathVariable int page, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("USER_SESSION");
-        List<Object> list = recordService.getPersonalRecordList(user.getId(), page);
+        List<Object> list = recordService.getPersonalRecordList(user.getId(), page, null);
         request.setAttribute("records", list.get(0));
         request.setAttribute("maxPage", list.get(1));
+        request.setAttribute("pageFlag","1");
+        return "personal_records";
+    }
+
+    @Access(level = AccessLevel.READER)
+    @RequestMapping("/personal_not_returned/{page}")
+    public String getPersonalNotReturnedRecordList(@PathVariable int page, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        List<Object> list = recordService.getPersonalRecordList(user.getId(), page, "1");
+        request.setAttribute("records", list.get(0));
+        request.setAttribute("maxPage", list.get(1));
+        request.setAttribute("pageFlag","2");
         return "personal_records";
     }
 }

@@ -19,9 +19,27 @@
 
     </insert>
     <select id="getRecordList" resultMap="recordMap">
-        SELECT * FROM record ORDER BY record_status DESC
+        SELECT *
+        FROM record
+        ORDER BY record_status DESC
     </select>
     <select id="getPersonalRecordList" resultMap="recordMap">
-        SELECT * FROM record WHERE record_borrower_id = #{userId} ORDER BY record_status DESC
+        SELECT * FROM record
+        <where>
+            record_borrower_id = #{userId}
+        </where>
+        ORDER BY record_status DESC
+    </select>
+    <select id="getRecordStatus" resultType="java.lang.Integer">
+        SELECT record_status
+        FROM record
+        WHERE record_id = #{recordId}
+    </select>
+    <select id="getPersonalNotReturnedList" resultMap="recordMap">
+        SELECT * FROM record
+        <where>
+            record_borrower_id = #{userId} AND record_status = "1"
+        </where>
+        ORDER BY record_status
     </select>
 </mapper>

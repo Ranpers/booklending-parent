@@ -31,6 +31,21 @@ public class BookController {
     }
 
     /**
+     * 删除特定图书 最低权限ADMIN
+     */
+    @Access(level = AccessLevel.ADMIN)
+    @GetMapping("/delete/{id}")
+    public void delete(@PathVariable int id, HttpServletResponse response) {
+        if (bookService.deleteBook(id) == 1) {
+            try {
+                response.getWriter().write(om.writeValueAsString("delete_success"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
      * 获取已启用图书列表 最低权限READER
      */
     @Access(level = AccessLevel.READER)

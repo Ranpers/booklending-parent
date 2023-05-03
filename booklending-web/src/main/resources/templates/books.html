@@ -43,7 +43,7 @@
                         <div class="btn-group">
                             <button type="button"
                                     class="btn btn-success book-borrow"
-                                    th:disabled="${book.remainNum == 0}"
+                                    th:disabled="(${book.remainNum == 0}) or (${book.status == '1'})"
                                     th:data-id="${book.id}">借阅
                             </button>
                             <button th:if="${session.USER_SESSION.role} == '2'" type="button"

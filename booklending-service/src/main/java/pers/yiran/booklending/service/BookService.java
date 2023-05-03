@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface BookService {
     List<Object> getBookList(int page);
+    Integer deleteBook(int bookId);
     List<Object> getBookListNotReader(int page);
     Book selectOneById(int id);
     Integer setStatus(int id, String status);

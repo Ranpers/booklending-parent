@@ -46,6 +46,9 @@
     <update id="updateBookNum">
         UPDATE book SET book_num = #{num} WHERE book_id = #{id};
     </update>
+    <update id="deleteBook">
+        DELETE FROM book WHERE book_id = #{bookId}
+    </update>
 
     <select id="getBookList" resultMap="bookMap">
         SELECT * FROM book WHERE book_status = '0'

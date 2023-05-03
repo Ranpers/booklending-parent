@@ -14,5 +14,7 @@ import java.util.List;
 public interface RecordMapper {
     List<RecordModel> getRecordList();
     List<RecordModel> getPersonalRecordList(int userId);
+    List<RecordModel> getPersonalNotReturnedList(int userId);
+    Integer getRecordStatus(int recordId);
     Integer addRecord();
 }

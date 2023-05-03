@@ -22,10 +22,11 @@
                     <td class="text-success" th:if="(${record.status} == '0' )">
                         已归还
                     </td>
-                    <td class="text-danger" th:if="(${record.status} == '1' )">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning" id="submit-approval">归还图书</button>
-                        </div>
+                    <td class="text-info" th:if="((${record.status} == '1') and (${pageFlag} == '1'))">
+                        未归还
+                    </td>
+                    <td class="text-info" th:if="((${record.status} == '1') and (${pageFlag} == '2'))">
+                        <button type="button" class="btn btn-warning">归还图书</button>
                     </td>
                     <td class="text-info" th:if="(${record.status} == '2' )">
                         待审批

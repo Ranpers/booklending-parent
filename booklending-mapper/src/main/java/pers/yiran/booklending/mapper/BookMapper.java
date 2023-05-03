@@ -15,6 +15,7 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     List<Book> getBookList();
+    Integer deleteBook(int bookId);
     List<Book> getBookListNotReader();
     Book selectOneById(int id);
     Integer setStatus(int id, String status);

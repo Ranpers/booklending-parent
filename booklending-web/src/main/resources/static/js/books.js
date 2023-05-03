@@ -1,17 +1,19 @@
 //点击删除按钮后 调用删除接口 若删除成功对当前子页面进行重新加载
 $(".book-delete").click(function () {
     $.ajax({
-        url: "delete/" + $(this).attr("data-id"),
+        url: "/booklending/book/delete/" + $(this).attr("data-id"),
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (res) {
             if (res === 'delete_success') {
-                changePage("/booklending/book" + "/list/", currentPage);
+                changePage("/booklending/book/list_not_reader/", currentPage);
             }
         }
     })
 });
+
+//TODO: 后端判断一下图书状态
 $(".book-borrow").click(function () {
     const id = $(this).attr("data-id");
     $('#borrow-submit').attr("data-id", id);
@@ -30,7 +32,11 @@ $("#borrow-submit").click(function () {
         success: function (res) {
             if (res === 'borrow_success') {
                 setTimeout(function () {
-                    changePage("/booklending/book/list/", currentPage)
+                    if($('#username').attr("data-role") === '0') {
+                        changePage("/booklending/book/list/", currentPage);
+                    } else {
+                        changePage("/booklending/book/list_not_reader/", currentPage);
+                    }
                 }, 500);
                 setTimeout(function () {
                     alert("借阅成功！")
@@ -56,7 +62,7 @@ $(".book-status").click(function () {
         dataType: "json",
         success: function (res) {
             if (res === 'update_success') {
-                changePage("/booklending/book/list/", currentPage);
+                changePage("/booklending/book/list_not_reader/", currentPage);
             } else if (res === "no_permissions") {
                 $(window).location.href = '/booklending/permission/no_permissions';
             }
@@ -103,7 +109,7 @@ $("#book-update").click(function () {
         success: function (res) {
             if (res === 'update_success') {
                 setTimeout(function () {
-                    changePage("/booklending/book/list/", currentPage);
+                    changePage("/booklending/book/list_not_reader/", currentPage);
                 }, 500);
             } else if (res === "no_permissions") {
                 $(window).location.href = '/booklending/permission/no_permissions';

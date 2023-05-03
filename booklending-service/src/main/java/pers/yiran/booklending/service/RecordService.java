@@ -7,5 +7,6 @@ import java.util.List;
  */
 public interface RecordService {
     List<Object> getRecordList(int page);
-    List<Object> getPersonalRecordList(int userId, int page);
+
+    List<Object> getPersonalRecordList(int userId, int page, String status);
 }

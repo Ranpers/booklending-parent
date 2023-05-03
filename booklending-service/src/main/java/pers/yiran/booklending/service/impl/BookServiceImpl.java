@@ -30,10 +30,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Object> getBookList(int pageNum) {
         List<Object> list = new ArrayList<>();
-        Page<Book> page = PageHelper.startPage(pageNum, 10);
+        Page<Book> page = PageHelper.startPage(pageNum, 8);
         list.add(bookMapper.getBookList());
         list.add(page.getPages());
         return list;
+    }
+
+    @Override
+    public Integer deleteBook(int bookId) {
+        return bookMapper.deleteBook(bookId);
     }
 
 
