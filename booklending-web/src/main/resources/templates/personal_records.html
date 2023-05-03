@@ -9,7 +9,8 @@
                     <th scope="col">作者</th>
                     <th scope="col">借阅时间</th>
                     <th scope="col">预计归还时间</th>
-                    <th scope="col">归还状态</th>
+                    <th th:if="${pageFlag} == '1'" scope="col">归还状态</th>
+                    <th th:if="${pageFlag} == '2'" scope="col">还书申请</th>
                 </tr>
                 </thead>
                 <tbody style="text-align: center;">
@@ -22,11 +23,12 @@
                     <td class="text-success" th:if="(${record.status} == '0' )">
                         已归还
                     </td>
-                    <td class="text-info" th:if="((${record.status} == '1') and (${pageFlag} == '1'))">
+                    <td class="text-danger" th:if="((${record.status} == '1') and (${pageFlag} == '1'))">
                         未归还
                     </td>
                     <td class="text-info" th:if="((${record.status} == '1') and (${pageFlag} == '2'))">
-                        <button type="button" class="btn btn-warning book-return">归还图书</button>
+                        <button type="button" class="btn btn-warning book-return"
+                                th:data-recordid="${record.id}" >提交申请</button>
                     </td>
                     <td class="text-info" th:if="(${record.status} == '2' )">
                         待审批

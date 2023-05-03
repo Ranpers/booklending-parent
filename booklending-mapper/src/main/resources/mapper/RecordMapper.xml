@@ -18,6 +18,12 @@
     <insert id="addRecord">
 
     </insert>
+    <update id="returnBook">
+        UPDATE record
+        SET record_status = '2'
+        WHERE record_borrower_id = #{userId}
+          AND record_id = #{recordId}
+    </update>
     <select id="getRecordList" resultMap="recordMap">
         SELECT *
         FROM record

@@ -33,6 +33,11 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
+    public Integer returnBook(int userId, int recordId) {
+        return recordMapper.returnBook(userId, recordId);
+    }
+
+    @Override
     public List<Object> getPersonalRecordList(int userId, int pageNum, String status) {
         List<Object> list = new ArrayList<>();
         Page<RecordModel> page = PageHelper.startPage(pageNum, 8);
