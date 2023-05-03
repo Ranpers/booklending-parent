@@ -19,6 +19,6 @@
 
     </insert>
     <select id="getRecordList" resultMap="recordMap">
-        SELECT * FROM record
+        SELECT * FROM record ORDER BY record_status DESC
     </select>
 </mapper>

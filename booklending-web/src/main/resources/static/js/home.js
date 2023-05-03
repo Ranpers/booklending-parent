@@ -16,6 +16,10 @@ function changePage(url, page) {
     });
 }
 
+/**
+ * 直接将接口写入home页按钮中的value属性即可
+ * 填充子页面 项目中多处复用！
+ */
 $(function () {
     $("button").click(function () {
         currentPage = 1;
