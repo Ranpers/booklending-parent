@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
+import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.service.RecordService;
 
 import java.util.List;
@@ -18,16 +19,28 @@ import java.util.List;
 @RequestMapping("/record")
 public class RecordController {
     RecordService recordService;
+
     @Autowired
-    public void setRecordService(RecordService recordService){
+    public void setRecordService(RecordService recordService) {
         this.recordService = recordService;
     }
+
     @Access(level = AccessLevel.EMPLOYEE)
     @RequestMapping("/list/{page}")
-    public String getRecordList(@PathVariable int page, HttpServletRequest request){
+    public String getRecordList(@PathVariable int page, HttpServletRequest request) {
         List<Object> list = recordService.getRecordList(page);
         request.setAttribute("records", list.get(0));
         request.setAttribute("maxPage", list.get(1));
         return "records";
+    }
+
+    @Access(level = AccessLevel.READER)
+    @RequestMapping("/personal_list/{page}")
+    public String getPersonalRecordList(@PathVariable int page, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        List<Object> list = recordService.getPersonalRecordList(user.getId(), page);
+        request.setAttribute("records", list.get(0));
+        request.setAttribute("maxPage", list.get(1));
+        return "personal_records";
     }
 }

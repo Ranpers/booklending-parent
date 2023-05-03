@@ -13,5 +13,6 @@ import java.util.List;
 @Mapper
 public interface RecordMapper {
     List<RecordModel> getRecordList();
+    List<RecordModel> getPersonalRecordList(int userId);
     Integer addRecord();
 }

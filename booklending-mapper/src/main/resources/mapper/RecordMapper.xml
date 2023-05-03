@@ -21,4 +21,7 @@
     <select id="getRecordList" resultMap="recordMap">
         SELECT * FROM record ORDER BY record_status DESC
     </select>
+    <select id="getPersonalRecordList" resultMap="recordMap">
+        SELECT * FROM record WHERE record_borrower_id = #{userId} ORDER BY record_status DESC
+    </select>
 </mapper>
