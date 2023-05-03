@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
-import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.model.UserModel;
 import pers.yiran.booklending.service.UserService;
 
@@ -45,10 +44,18 @@ public class ReaderController {
      * 编辑特定读者信息 最低权限:EMPLOYEE
      */
     @Access(level = AccessLevel.EMPLOYEE)
-    @GetMapping("/one/edit")
-    public void readerEdit(@RequestBody User user) {
+    @PostMapping("/one/update")
+    public void readerUpdate(@RequestBody UserModel user, HttpServletResponse response) {
         user.setRole(0);
-        userService.update(user);
+        try {
+            if (userService.update(user) == 1) {
+                response.getWriter().write(om.writeValueAsString("update_success"));
+            } else {
+                response.getWriter().write(om.writeValueAsString("no_permissions"));
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /**

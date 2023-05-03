@@ -17,13 +17,11 @@
         <form id="login-form" method="post">
             <div class="form-field">
                 <label for="email">邮箱</label>
-                <input type="text" id="email" name="email" autocomplete="can_not" required
-                       th:value="${param.email}">
+                <input type="text" id="email" name="email" autocomplete="can_not" required>
             </div>
             <div class="form-field">
                 <label for="password">密码</label>
-                <input type="password" id="password" name="password" autocomplete="can_not" required
-                       th:value="${param.password}">
+                <input type="password" id="password" name="password" autocomplete="can_not" required>
             </div>
             <div class="form-field">
                 <input type="submit" value="登录">

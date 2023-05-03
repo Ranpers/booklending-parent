@@ -12,6 +12,6 @@ public interface UserService {
     UserModel select(int role, int id);
     List<Object> login(User user);
     Integer delete(int userId);
-    Integer update(User user);
+    Integer update(UserModel userModel);
     List<Object> getUserList(int page, int role);
 }

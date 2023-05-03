@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" monitorInterval="1800">
+    <appenders>
+        <Console name="consolePrint" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss.SSS} %highlight{[%p]}{ERROR=Bright RED, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %style{%r}{cyan} -- [%t] %style{%c.%M}{bright,magenta} : %m%n"/>
+        </Console>
+    </appenders>
+
+    <loggers>
+        <!-- 将业务dao接口填写进去,并用控制台和文件输出即可 -->
+        <logger name="pers.yiran.booklending.mapper" level="DEBUG" additivity="false">
+            <appender-ref ref="consolePrint"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="consolePrint" />
+        </root>
+    </loggers>
+</Configuration>

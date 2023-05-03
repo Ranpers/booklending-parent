@@ -16,6 +16,6 @@ public interface UserMapper {
     UserModel select(User user);
     User login(User user);
     Integer delete(int id);
-    Integer update(User user);
-    List<User> getUserList(int row);
+    Integer update(UserModel user);
+    List<User> getUserList(int role);
 }

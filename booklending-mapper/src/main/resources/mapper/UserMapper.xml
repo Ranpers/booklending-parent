@@ -18,48 +18,52 @@
 
     <resultMap id="userModelMap" type="pers.yiran.booklending.model.UserModel">
         <id property="id" column="user_id"/>
-        <result property="email" column="user_email"/>
         <result property="username" column="user_name"/>
         <result property="gender" column="user_gender"/>
         <result property="birthday" column="user_birthday"/>
         <result property="phone" column="user_phone"/>
+        <result property="role" column="user_role"/>
     </resultMap>
 
     <update id="update">
         UPDATE user
-        <if test="{#email} != null">
-            <set>user_emial = {#email},</set>
-        </if>
-        <if test="{#username} != null">
-            <set>user_name = {#username},</set>
-        </if>
-        <if test="{#password} != null">
-            <set>user_password = {#password},</set>
-        </if>
-        <if test="{#gender} != null">
-            <set>user_gender = {#gender},</set>
-        </if>
-        <if test="{#phone} != null">
-            <set>user_phone = {#phone},</set>
-        </if>
-        <if test="{#status} != null">
-            <set>user_status = {#status}</set>
-        </if>
+        <set>
+            <if test="#{gender} != null">
+                user_gender = #{gender},
+            </if>
+            <if test="#{username} != null">
+                user_name = #{username},
+            </if>
+            <if test="#{birthday} != null">
+                user_birthday = #{birthday},
+            </if>
+            <if test="#{phone} != null">
+                user_phone = #{phone}
+            </if>
+        </set>
         <where>
-            user_id = {#id} AND user_role = {#role}
+            user_id = #{id} AND user_role = #{role}
         </where>
     </update>
 
     <delete id="delete">
-        DELETE FROM user WHERE user_id = #{id}
+        DELETE
+        FROM user
+        WHERE user_id = #{id}
     </delete>
 
     <select id="login" resultMap="userMap">
-        SELECT * FROM user WHERE user_email = #{email} AND user_status != '1' LIMIT 1
+        SELECT *
+        FROM user
+        WHERE user_email = #{email}
+          AND user_status != '1'
+        LIMIT 1
     </select>
 
     <select id="getUserList" resultMap="userMap">
-        SELECT * FROM user WHERE user_role = #{role}
+        SELECT *
+        FROM user
+        WHERE user_role = #{role}
     </select>
     <select id="select" resultMap="userModelMap">
         SELECT * FROM user

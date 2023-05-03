@@ -9,7 +9,7 @@ import pers.yiran.booklending.mapper.UserMapper;
 import pers.yiran.booklending.model.UserModel;
 import pers.yiran.booklending.service.UserService;
 
-import java.util.ArrayList;
+import java.util.ArrayList;;
 import java.util.List;
 
 /**
@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer update(User user) {
-        return userMapper.update(user);
+    public Integer update(UserModel userModel) {
+        return userMapper.update(userModel);
     }
     @Override
     public List<Object> getUserList(int pageNum, int role) {

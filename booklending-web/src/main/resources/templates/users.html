@@ -1,9 +1,5 @@
-<style>
-    #login-form label {
-        margin-right: 10px;
-        font-size: 14px;
-    }
-</style>
+<link th:rel="stylesheet" th:href="@{/css/users.css}"/>
+<script th:inline="javascript" th:src="@{/js/users.js}"></script>
 <div class="container-fluid" th:data-role="${role}">
     <div class="row">
         <div class="col-lg-12">
@@ -12,6 +8,7 @@
                 <tr style="text-align: center;">
                     <th scope="col">姓名</th>
                     <th scope="col">性别</th>
+                    <th scope="col">生日</th>
                     <th scope="col">手机</th>
                     <th scope="col">邮箱</th>
                     <th scope="col">状态</th>
@@ -22,6 +19,7 @@
                 <tr th:each="user : ${users}">
                     <th scope="row" th:text="${user.username}"></th>
                     <td th:text="${user.gender}"></td>
+                    <td th:text="${user.birthday}"></td>
                     <td th:text="${user.phone}"></td>
                     <td th:text="${user.email}"></td>
                     <td>
@@ -40,8 +38,8 @@
                                     class="btn btn-danger user-delete"
                                     th:data-id="${user.id}">删除
                             </button>
-                            <button type="button" class="btn btn-warning user-edit" data-toggle="modal"
-                                    data-target="#userEditModal" th:data-role="${user.role}"
+                            <button type="button" class="btn btn-warning user-edit"
+                                    th:data-role="${user.role}"
                                     th:data-id="${user.id}">编辑
                             </button>
                         </div>
@@ -64,45 +62,37 @@
                 <div class="modal-body">
                     <form id="login-form" method="POST">
                         <div class="mb-3">
-                            <div class="d-flex align-items-center">
-                                <label for="username">用户名</label>
-                                <input type="text" id="username" name="username" autocomplete="off" required value="">
+                            <label for="username">姓名：</label>
+                            <input type="text" id="username" name="username" autocomplete="off" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>性别：</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="gender_man" name="gender"
+                                       autocomplete="off" required value="男" checked>
+                                <label class="form-check-label" for="gender_man">男</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="gender_woman" name="gender"
+                                       autocomplete="off" required value="女">
+                                <label class="form-check-label" for="gender_woman">女</label>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div class="d-flex align-items-center">
-                                <label for="phone">手机</label>
-                                <input type="text" id="phone" name="phone" autocomplete="off" required value="">
-                            </div>
+                            <label for="phone">手机：</label>
+                            <input type="text" id="phone" name="phone" autocomplete="off" required>
                         </div>
                         <div class="mb-3">
-                            <div class="d-flex align-items-center">
-                                <label for="email">邮箱</label>
-                                <input type="text" id="email" name="email" autocomplete="off" required value="">
-                            </div>
-                        </div>
-                        <label>性别</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="gender_man" name="gender"
-                                   autocomplete="off" required value="男" checked>
-                            <label class="form-check-label" for="gender_man">男</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="gender_woman" name="gender"
-                                   autocomplete="off" required value="女">
-                            <label class="form-check-label" for="gender_woman">女</label>
-                        </div>
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center">
-                                <label for="birthday">生日</label>
-                                <input type="date" id="birthday" name="birthday" autocomplete="off" required value="">
-                            </div>
+                            <label for="birthday">生日：</label>
+                            <input type="date" id="birthday" name="birthday" autocomplete="off" required>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-primary" th:data-id="0" data-dismiss="modal" id="user-update">
+                        保存
+                    </button>
                 </div>
             </div>
         </div>
@@ -127,4 +117,3 @@
         </div>
     </div>
 </div>
-<script th:inline="javascript" th:src="@{/js/users.js}"></script>

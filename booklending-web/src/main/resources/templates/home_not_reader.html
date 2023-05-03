@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <title>图书借阅管理系统</title>
     <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/home.css}">
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/home_not_reader.js}"></script>
+    <script th:src="@{/js/home.js}"></script>
 </head>
-<style>
-    .dropdown-item:focus {
-        background-color: #383c44;
-    }
-</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href=" ">图书借阅管理系统</a>
@@ -29,7 +25,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="userDropdown">
                     <button class="dropdown-item" value="/booklending/reader/list/">读者列表</button>
-                    <button class="dropdown-item" value="reader/">问题处理</button>
                 </div>
             </li>
             <li th:if="${session.USER_SESSION.role} == '2'" class="nav-item dropdown">
@@ -37,15 +32,13 @@
                    aria-haspopup="true" aria-expanded="false">员工管理</a>
                 <div class="dropdown-menu" aria-labelledby="employeeDropdown">
                     <button class="dropdown-item" value="/booklending/employee/list/">员工列表</button>
-                    <button class="dropdown-item" value="employee/">问题处理</button>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="bookDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">图书管理</a>
                 <div class="dropdown-menu" aria-labelledby="bookDropdown">
-                    <a class="dropdown-item" href="#">图书列表</a>
-                    <a class="dropdown-item" href="#">问题处理</a>
+                    <button class="dropdown-item" value="/booklending/book/list_not_reader/">图书列表</button>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -54,7 +47,6 @@
                 <div class="dropdown-menu" aria-labelledby="borrowDropdown">
                     <a class="dropdown-item" href="#">还书审批</a>
                     <a class="dropdown-item" href="#">借阅记录</a>
-                    <a class="dropdown-item" href="#">问题处理</a>
                 </div>
             </li>
         </ul>

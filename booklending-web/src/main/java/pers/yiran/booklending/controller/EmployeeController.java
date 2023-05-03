@@ -1,14 +1,12 @@
 package pers.yiran.booklending.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
 import pers.yiran.booklending.entity.User;
@@ -46,13 +44,21 @@ public class EmployeeController {
     }
 
     /**
-     * 编辑员工信息 最低权限:ADMIN
+     * 编辑特定员工信息 最低权限:ADMIN
      */
     @Access(level = AccessLevel.ADMIN)
-    @GetMapping("/edit")
-    public void readerEdit(@RequestBody User user) {
+    @PostMapping("/one/update")
+    public void employeeUpdate(@RequestBody UserModel user, HttpServletRequest request, HttpServletResponse response) {
         user.setRole(1);
-        userService.update(user);
+        try {
+            if (userService.update(user) == 1) {
+                response.getWriter().write(om.writeValueAsString("update_success"));
+            } else {
+                request.getRequestDispatcher("/permission/no_permissions").forward(request, response);
+            }
+        } catch (IOException | ServletException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -68,5 +74,11 @@ public class EmployeeController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Access(level = AccessLevel.ADMIN)
+    @PostMapping("/save")
+    public void saveEdited(@RequestBody UserModel userModel){
+
     }
 }
