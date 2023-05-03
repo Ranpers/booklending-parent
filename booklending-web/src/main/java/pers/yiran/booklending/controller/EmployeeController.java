@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
-import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.model.UserModel;
 import pers.yiran.booklending.service.UserService;
 

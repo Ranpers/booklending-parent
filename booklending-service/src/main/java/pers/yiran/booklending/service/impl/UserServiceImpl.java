@@ -9,7 +9,7 @@ import pers.yiran.booklending.mapper.UserMapper;
 import pers.yiran.booklending.model.UserModel;
 import pers.yiran.booklending.service.UserService;
 
-import java.util.ArrayList;;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
