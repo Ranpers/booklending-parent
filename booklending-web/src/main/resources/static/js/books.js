@@ -16,6 +16,7 @@ $(".book-delete").click(function () {
 $(".book-borrow").click(function () {
     const id = $(this).attr("data-id");
     $('#borrow-submit').attr("data-id", id);
+    $('#remand-date')[0].valueAsDate = new Date();
     $('#bookBorrowModal').modal('show');
 })
 //TODO:提交借阅时，在后端对status进行校验

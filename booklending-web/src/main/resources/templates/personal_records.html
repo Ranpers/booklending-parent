@@ -26,7 +26,7 @@
                         未归还
                     </td>
                     <td class="text-info" th:if="((${record.status} == '1') and (${pageFlag} == '2'))">
-                        <button type="button" class="btn btn-warning">归还图书</button>
+                        <button type="button" class="btn btn-warning book-return">归还图书</button>
                     </td>
                     <td class="text-info" th:if="(${record.status} == '2' )">
                         待审批
@@ -37,3 +37,4 @@
         </div>
     </div>
 </div>
+<script th:src="@{/js/records.js}"></script>
