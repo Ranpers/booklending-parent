@@ -1,5 +1,4 @@
 <link th:rel="stylesheet" th:href="@{/css/users.css}"/>
-<script th:inline="javascript" th:src="@{/js/users.js}"></script>
 <div class="container-fluid" th:data-role="${role}">
     <div class="row">
         <div class="col-lg-12">
@@ -24,11 +23,11 @@
                     <td th:text="${user.email}"></td>
                     <td th:if="${session.USER_SESSION.role} == '2'">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success" th:if="${user.status == '1'}"
-                                    th:data-id="${user.id}">启用
+                            <button type="button" class="btn btn-success user-status" th:if="${user.status == '1'}"
+                                    th:data-id="${user.id}" th:data-status="0" >启用
                             </button>
-                            <button type="button" class="btn btn-danger" th:if="${user.status == '0'}"
-                                    th:data-id="${user.id}">停用
+                            <button type="button" class="btn btn-danger user-status" th:if="${user.status == '0'}"
+                                    th:data-id="${user.id}" th:data-status="1">停用
                             </button>
                         </div>
                     </td>
@@ -117,3 +116,4 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript" th:src="@{/js/users.js}"></script>

@@ -46,6 +46,27 @@ $(".user-edit").click(function () {
     })
 });
 
+$(".user-status").click(function () {
+    const id = $(this).attr("data-id");
+    const status = $(this).attr("data-status");
+    $.ajax({
+        url: "/booklending/user/status/" + id + "/" + status,
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            if (res === 'update_success') {
+                changePage("/booklending/" + $(".container-fluid").attr("data-role") + "/list/", currentPage);
+            } else if (res === "no_permissions") {
+                $(window).location.href = '/booklending/permission/no_permissions';
+            }
+        },
+        error: function () {
+            alert("服务器走丢了，请稍候~");
+        }
+    })
+})
+
 $("#user-update").click(function () {
     const id =  $('#user-update').attr("data-id");
     const role = $(".container-fluid").attr("data-role");
