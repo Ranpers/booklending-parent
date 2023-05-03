@@ -15,6 +15,7 @@ import java.util.List;
 public interface UserMapper {
     UserModel select(User user);
     UserModel selectById(int id);
+    Integer setStatus(int id, String status);
     User login(User user);
     Integer delete(int id);
     Integer update(UserModel user);

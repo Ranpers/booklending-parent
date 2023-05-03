@@ -46,6 +46,10 @@
         </where>
     </update>
 
+    <update id="setStatus">
+        UPDATE user SET user_status = #{status} WHERE user_id = #{id}
+    </update>
+
     <delete id="delete">
         DELETE
         FROM user

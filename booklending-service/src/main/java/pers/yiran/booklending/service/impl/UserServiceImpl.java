@@ -54,6 +54,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer setStatus(int id, String status) {
+        return userMapper.setStatus(id, status);
+    }
+    @Override
     public Integer delete(int userId) {
         return userMapper.delete(userId);
     }

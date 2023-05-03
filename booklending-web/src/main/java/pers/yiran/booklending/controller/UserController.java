@@ -85,6 +85,20 @@ public class UserController {
     }
 
     @Access(level = AccessLevel.ADMIN)
+    @GetMapping("/status/{id}/{status}")
+    public void setStatus(@PathVariable int id, @PathVariable String status, HttpServletResponse response) {
+        try {
+            if (userService.setStatus(id, status) == 1) {
+                response.getWriter().write(om.writeValueAsString("update_success"));
+            } else {
+                response.getWriter().write(om.writeValueAsString("no_permissions"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Access(level = AccessLevel.ADMIN)
     @GetMapping("/delete/{id}")
     public void delete(@PathVariable int id, HttpServletResponse response) {
         if (userService.delete(id) == 1) {

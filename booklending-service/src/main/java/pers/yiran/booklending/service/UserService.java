@@ -13,5 +13,6 @@ public interface UserService {
     List<Object> login(User user);
     Integer delete(int userId);
     Integer update(UserModel userModel);
+    Integer setStatus(int id, String status);
     List<Object> getUserList(int page, int role);
 }

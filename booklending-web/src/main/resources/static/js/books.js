@@ -13,13 +13,12 @@ $(".book-delete").click(function () {
     })
 });
 
-//TODO: 后端判断一下图书状态
 $(".book-borrow").click(function () {
     const id = $(this).attr("data-id");
     $('#borrow-submit').attr("data-id", id);
     $('#bookBorrowModal').modal('show');
 })
-
+//TODO:提交借阅时，在后端对status进行校验
 $("#borrow-submit").click(function () {
     let id = $(this).attr("data-id");
     let remandDate = $('#remand-date')[0].valueAsDate.toLocaleDateString();
@@ -32,7 +31,7 @@ $("#borrow-submit").click(function () {
         success: function (res) {
             if (res === 'borrow_success') {
                 setTimeout(function () {
-                    if($('#username').attr("data-role") === '0') {
+                    if($('#username1').attr("data-role") === '0') {
                         changePage("/booklending/book/list/", currentPage);
                     } else {
                         changePage("/booklending/book/list_not_reader/", currentPage);
@@ -52,6 +51,8 @@ $("#borrow-submit").click(function () {
         }
     })
 })
+
+//TODO: 后端对传入status进行验证
 $(".book-status").click(function () {
     const id = $(this).attr("data-id");
     const status = $(this).attr("data-status");

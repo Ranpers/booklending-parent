@@ -11,7 +11,7 @@
                     <th scope="col">生日</th>
                     <th scope="col">手机</th>
                     <th scope="col">邮箱</th>
-                    <th scope="col">状态</th>
+                    <th scope="col" th:if= "${session.USER_SESSION.role} == '2'">状态</th>
                     <th scope="col">操作</th>
                 </tr>
                 </thead>
@@ -22,7 +22,7 @@
                     <td th:text="${user.birthday}"></td>
                     <td th:text="${user.phone}"></td>
                     <td th:text="${user.email}"></td>
-                    <td>
+                    <td th:if="${session.USER_SESSION.role} == '2'">
                         <div class="btn-group">
                             <button type="button" class="btn btn-success" th:if="${user.status == '1'}"
                                     th:data-id="${user.id}">启用
