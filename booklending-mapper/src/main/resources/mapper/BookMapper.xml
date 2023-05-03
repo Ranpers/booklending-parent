@@ -13,8 +13,12 @@
         <result property="price" column="book_price"/>
         <result property="uploadTime" column="book_uploadtime"/>
         <result property="status" column="book_status"/>
-        <result property="remainNum" column="book_initnum"/>
+        <result property="remainNum" column="book_num"/>
     </resultMap>
+    <insert id="bookBorrow">
+        INSERT INTO record(record_book_id, record_borrower_id, record_borrow_date, record_remand_date, record_status)
+        VALUES (#{bookId}, #{borrowerId}, #{borrowDate}, #{remandDate}, #{status})
+    </insert>
     <update id="bookUpdate">
         UPDATE book
         <set>
@@ -39,6 +43,9 @@
     <update id="setStatus">
         UPDATE book SET book_status = #{status} WHERE book_id = #{id}
     </update>
+    <update id="updateBookNum">
+        UPDATE book SET book_num = #{num} WHERE book_id = #{id};
+    </update>
 
     <select id="getBookList" resultMap="bookMap">
         SELECT * FROM book WHERE book_status = '0'
@@ -48,6 +55,9 @@
     </select>
     <select id="getBookListNotReader" resultMap="bookMap">
         SELECT * FROM book ORDER BY book_status
+    </select>
+    <select id="getBookNum" resultType="java.lang.Integer">
+        SELECT book_num FROM book WHERE book_id = #{id}
     </select>
 
 </mapper>

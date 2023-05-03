@@ -1,6 +1,7 @@
 package pers.yiran.booklending.service;
 
 import pers.yiran.booklending.entity.Book;
+import pers.yiran.booklending.entity.Record;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface BookService {
     Book selectOneById(int id);
     Integer setStatus(int id, String status);
     Integer bookUpdate(Book book);
+    Integer borrowBook(Record record);
 }

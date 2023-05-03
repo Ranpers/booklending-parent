@@ -71,4 +71,7 @@
             user_id = #{id} AND user_role = #{role}
         </where>
     </select>
+    <select id="selectById" resultMap="userModelMap">
+        SELECT * FROM user WHERE user_id = #{id}
+    </select>
 </mapper>

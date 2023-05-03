@@ -12,6 +12,40 @@ $(".book-delete").click(function () {
         }
     })
 });
+$(".book-borrow").click(function () {
+    const id = $(this).attr("data-id");
+    $('#borrow-submit').attr("data-id", id);
+    $('#bookBorrowModal').modal('show');
+})
+
+$("#borrow-submit").click(function () {
+    let id = $(this).attr("data-id");
+    let remandDate = $('#remand-date')[0].valueAsDate.toLocaleDateString();
+    $.ajax({
+        url: "/booklending/book/borrow",
+        type: 'POST',
+        data: JSON.stringify({bookId: id, remandDate: remandDate}),
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (res) {
+            if (res === 'borrow_success') {
+                setTimeout(function () {
+                    changePage("/booklending/book/list/", currentPage)
+                }, 500);
+                setTimeout(function () {
+                    alert("借阅成功！")
+                }, 800);
+            } else if (res === "borrow_out_range") {
+                setTimeout(function () {
+                    alert("无剩余图书！")
+                }, 800);
+            }
+        },
+        error: function () {
+            alert('服务器错误，请稍后再试！');
+        }
+    })
+})
 $(".book-status").click(function () {
     const id = $(this).attr("data-id");
     const status = $(this).attr("data-status");

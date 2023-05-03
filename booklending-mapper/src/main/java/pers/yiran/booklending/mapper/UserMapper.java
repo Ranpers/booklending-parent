@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     UserModel select(User user);
+    UserModel selectById(int id);
     User login(User user);
     Integer delete(int id);
     Integer update(UserModel user);

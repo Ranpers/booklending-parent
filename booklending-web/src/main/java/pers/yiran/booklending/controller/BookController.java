@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import pers.yiran.booklending.common.Access;
 import pers.yiran.booklending.common.AccessLevel;
 import pers.yiran.booklending.entity.Book;
+import pers.yiran.booklending.entity.Record;
+import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.service.BookService;
 
 import java.io.IOException;
@@ -68,7 +70,25 @@ public class BookController {
             e.printStackTrace();
         }
     }
-
+    @Access(level = AccessLevel.READER)
+    @PostMapping("/borrow")
+    public void borrowBook(@RequestBody Record record, HttpServletRequest request, HttpServletResponse response) {
+        User user = (User) request.getSession().getAttribute("USER_SESSION");
+        int userId = user.getId();
+        record.setBorrowerId(userId);
+        int res = bookService.borrowBook(record);
+        try {
+            if (res == 1) {
+                response.getWriter().write(om.writeValueAsString("borrow_success"));
+            } else if(res == 2){
+                response.getWriter().write(om.writeValueAsString("borrow_out_range"));
+            } else {
+                response.getWriter().write(om.writeValueAsString("no_permissions"));
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     /**
      * 获取特定图书信息 最低权限:EMPLOYEE
      */
