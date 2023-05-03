@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">借阅人</th>
+                    <th scope="col">图书</th>
+                    <th scope="col">出版社</th>
+                    <th scope="col">作者</th>
+                    <th scope="col">借阅时间</th>
+                    <th scope="col">预计归还时间</th>
+                    <th scope="col">还书审批</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.user.username}"></td>
+                    <td th:text="${record.book.bookname}"></td>
+                    <td th:text="${record.book.press}"></td>
+                    <td th:text="${record.book.author}"></td>
+                    <td th:text="${record.borrowDate}"></td>
+                    <td th:text="${record.remandDate}"></td>
+                    <td>
+                        <button type="button" class="btn btn-success approval-ass"
+                                th:data-recordid="${record.id}">通过
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/records.js}"></script>

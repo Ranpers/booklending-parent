@@ -61,6 +61,14 @@ public class RecordController {
         return "personal_records";
     }
 
+    @Access(level = AccessLevel.EMPLOYEE)
+    @GetMapping("/not_approval/{page}")
+    public String getNotApprovalRecordList(@PathVariable int page, HttpServletRequest request) {
+        List<Object> list = recordService.getNotApproval(page);
+        request.setAttribute("records", list.get(0));
+        request.setAttribute("maxPage", list.get(1));
+        return "not_approval";
+    }
     @Access(level = AccessLevel.READER)
     @GetMapping("/return/{recordId}")
     public void returnBook(@PathVariable int recordId, HttpServletRequest request, HttpServletResponse response) {
@@ -74,5 +82,11 @@ public class RecordController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Access(level = AccessLevel.EMPLOYEE)
+    @GetMapping("/approval/{recordId}")
+    public void returnApproval(@PathVariable int recordId){
+
     }
 }

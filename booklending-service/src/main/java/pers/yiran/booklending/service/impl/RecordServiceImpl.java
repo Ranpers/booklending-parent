@@ -38,6 +38,16 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
+    public List<Object> getNotApproval(int pageNum) {
+        List<Object> list = new ArrayList<>();
+        Page<RecordModel> page = PageHelper.startPage(pageNum, 10);
+        List<RecordModel> recordModels = recordMapper.getNotApproval();
+        list.add(recordModels);
+        list.add(page.getPages());
+        return list;
+    }
+
+    @Override
     public List<Object> getPersonalRecordList(int userId, int pageNum, String status) {
         List<Object> list = new ArrayList<>();
         Page<RecordModel> page = PageHelper.startPage(pageNum, 8);

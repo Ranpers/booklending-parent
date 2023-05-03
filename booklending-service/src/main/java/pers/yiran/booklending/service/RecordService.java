@@ -8,6 +8,7 @@ import java.util.List;
 public interface RecordService {
     List<Object> getRecordList(int page);
     Integer returnBook(int userId, int recordId);
+    List<Object> getNotApproval(int page);
 
     List<Object> getPersonalRecordList(int userId, int page, String status);
 }

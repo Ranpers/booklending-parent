@@ -44,8 +44,14 @@
     <select id="getPersonalNotReturnedList" resultMap="recordMap">
         SELECT * FROM record
         <where>
-            record_borrower_id = #{userId} AND record_status = "1"
+            record_borrower_id = #{userId} AND record_status = '1'
         </where>
         ORDER BY record_status
+    </select>
+    <select id="getNotApproval" resultMap="recordMap">
+        SELECT *
+        FROM record
+        WHERE record_status = '2'
+        ORDER BY record_borrower_id ,record_remand_date
     </select>
 </mapper>

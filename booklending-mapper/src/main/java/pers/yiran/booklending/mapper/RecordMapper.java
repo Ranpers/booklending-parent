@@ -15,6 +15,7 @@ public interface RecordMapper {
     List<RecordModel> getRecordList();
     List<RecordModel> getPersonalRecordList(int userId);
     List<RecordModel> getPersonalNotReturnedList(int userId);
+    List<RecordModel> getNotApproval();
     Integer getRecordStatus(int recordId);
     Integer returnBook(int userId, int recordId);
     Integer addRecord();
