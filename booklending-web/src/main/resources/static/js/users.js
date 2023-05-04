@@ -55,10 +55,20 @@ $(".user-status").click(function () {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (res) {
-            if (res === 'update_success') {
+            if (res === "user_on") {
                 changePage("/booklending/" + $(".container-fluid").attr("data-role") + "/list/", currentPage);
-            } else if (res === "no_permissions") {
-                $(window).location.href = '/booklending/permission/no_permissions';
+                setTimeout(function () {
+                    alert("用户已启用！");
+                }, 200)
+            } else if (res === "user_off") {
+                changePage("/booklending/" + $(".container-fluid").attr("data-role") + "/list/", currentPage);
+                setTimeout(function () {
+                    alert("用户已下线！");
+                }, 200)
+            } else if (res === "system_error") {
+                setTimeout(function () {
+                    alert("系统错误！");
+                }, 100)
             }
         },
         error: function () {
@@ -68,7 +78,7 @@ $(".user-status").click(function () {
 })
 
 $("#user-update").click(function () {
-    const id =  $('#user-update').attr("data-id");
+    const id = $('#user-update').attr("data-id");
     const role = $(".container-fluid").attr("data-role");
     let gender;
     let radio = document.getElementsByName("gender");

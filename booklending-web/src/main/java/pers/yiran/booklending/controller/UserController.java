@@ -1,8 +1,10 @@
 package pers.yiran.booklending.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import pers.yiran.booklending.entity.User;
 import pers.yiran.booklending.service.UserService;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -61,7 +64,10 @@ public class UserController {
         try {
             if ((int) list.get(0) == 0) {
                 // TODO: 不要直接存储密码，考虑进行加密！
-                request.getSession().setAttribute("USER_SESSION", list.get(1));
+                User u = (User) list.get(1);
+                HttpSession session = request.getSession();
+                request.getServletContext().setAttribute("userId:" + u.getId(), session);
+                request.getSession().setAttribute("USER_SESSION", u);
                 response.getWriter().write(om.writeValueAsString("login_success"));
             } else if ((int) list.get(0) == 1) {
                 response.getWriter().write(om.writeValueAsString("email_not_exist"));
@@ -86,12 +92,26 @@ public class UserController {
 
     @Access(level = AccessLevel.ADMIN)
     @GetMapping("/status/{id}/{status}")
-    public void setStatus(@PathVariable int id, @PathVariable String status, HttpServletResponse response) {
+    public void setStatus(@PathVariable int id, @PathVariable String status, HttpServletRequest request, HttpServletResponse response) {
         try {
             if (userService.setStatus(id, status) == 1) {
-                response.getWriter().write(om.writeValueAsString("update_success"));
+                if ("1".equals(status)) {
+                    ServletContext servletContext = request.getServletContext();
+                    Enumeration<String> attributeNames = servletContext.getAttributeNames();
+                    while (attributeNames.hasMoreElements()) {
+                        String attributeName = attributeNames.nextElement();
+                        if (("userId:" + id).equals(attributeName)) {
+                            HttpSession session = (HttpSession) servletContext.getAttribute(attributeName);
+                            servletContext.removeAttribute("userId:" + id);
+                            session.invalidate();
+                            response.getWriter().write(om.writeValueAsString("user_off"));
+                        }
+                    }
+                } else if ("0".equals(status)) {
+                    response.getWriter().write(om.writeValueAsString("user_on"));
+                }
             } else {
-                response.getWriter().write(om.writeValueAsString("no_permissions"));
+                response.getWriter().write(om.writeValueAsString("system_error"));
             }
         } catch (IOException e) {
             e.printStackTrace();
