@@ -71,6 +71,8 @@ public class UserController {
                 response.getWriter().write(om.writeValueAsString("login_success"));
             } else if ((int) list.get(0) == 1) {
                 response.getWriter().write(om.writeValueAsString("email_not_exist"));
+            } else if ((int) list.get(0) == 2) {
+                response.getWriter().write(om.writeValueAsString("user_off"));
             } else {
                 response.getWriter().write(om.writeValueAsString("password_incorrect"));
             }

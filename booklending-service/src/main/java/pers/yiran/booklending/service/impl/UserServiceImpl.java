@@ -42,13 +42,16 @@ public class UserServiceImpl implements UserService {
             list.add(1);
             return list;
         }
-        if (user.getPassword().equals(u.getPassword())) {
+        if ("0".equals(user.getStatus()) && user.getPassword().equals(u.getPassword())) {
             //验证成功
             list.add(0);
             list.add(user);
+        } else if ("1".equals(user.getStatus())) {
+            //用户被停用
+            list.add(2);
         } else {
             //密码错误
-            list.add(2);
+            list.add(3);
         }
         return list;
     }
@@ -57,6 +60,7 @@ public class UserServiceImpl implements UserService {
     public Integer setStatus(int id, String status) {
         return userMapper.setStatus(id, status);
     }
+
     @Override
     public Integer delete(int userId) {
         return userMapper.delete(userId);
@@ -66,6 +70,7 @@ public class UserServiceImpl implements UserService {
     public Integer update(UserModel userModel) {
         return userMapper.update(userModel);
     }
+
     @Override
     public List<Object> getUserList(int pageNum, int role) {
         List<Object> list = new ArrayList<>();

@@ -37,7 +37,7 @@
 <script type="text/javascript" th:inline="javascript">
     const isRedirect = /*[[${isRedirect}]]*/ "0";
     $(document).ready(function () {
-        window.setTimeout(function (){
+        window.setTimeout(function () {
             if (isRedirect === "1") {
                 alert("请先登陆，然后再继续操作！");
             }
@@ -57,6 +57,8 @@
                         window.location.href = 'home';
                     } else if (res === 'email_not_exist') {
                         alert("邮箱不存在！");
+                    } else if (res === 'user_off') {
+                        alert("用户已被停用，请联系管理员处理！")
                     } else if (res === 'password_incorrect') {
                         alert("密码错误！");
                     }

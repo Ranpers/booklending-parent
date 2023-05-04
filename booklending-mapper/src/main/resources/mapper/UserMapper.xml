@@ -60,7 +60,6 @@
         SELECT *
         FROM user
         WHERE user_email = #{email}
-          AND user_status != '1'
         LIMIT 1
     </select>
 
