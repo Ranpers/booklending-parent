@@ -15,14 +15,16 @@
                      column="record_borrower_id"
                      select="pers.yiran.booklending.mapper.UserMapper.selectById"/>
     </resultMap>
-    <insert id="addRecord">
-
-    </insert>
     <update id="returnBook">
         UPDATE record
         SET record_status = '2'
         WHERE record_borrower_id = #{userId}
           AND record_id = #{recordId}
+    </update>
+    <update id="returnApproval">
+        UPDATE record
+        SET record_status = '0'
+        WHERE record_id = #{recordId}
     </update>
     <select id="getRecordList" resultMap="recordMap">
         SELECT *
@@ -53,5 +55,8 @@
         FROM record
         WHERE record_status = '2'
         ORDER BY record_borrower_id ,record_remand_date
+    </select>
+    <select id="getRecordById" resultMap="recordMap">
+        SELECT * FROM record WHERE record_id = #{recordId}
     </select>
 </mapper>

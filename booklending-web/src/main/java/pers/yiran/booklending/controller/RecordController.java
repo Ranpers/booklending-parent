@@ -86,7 +86,15 @@ public class RecordController {
 
     @Access(level = AccessLevel.EMPLOYEE)
     @GetMapping("/approval/{recordId}")
-    public void returnApproval(@PathVariable int recordId){
-
+    public void returnApproval(@PathVariable int recordId, HttpServletResponse response){
+        try {
+            if (recordService.returnApproval(recordId) == 1) {
+                response.getWriter().write(om.writeValueAsString("update_success"));
+            } else {
+                response.getWriter().write(om.writeValueAsString("system_error"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

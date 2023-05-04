@@ -11,4 +11,5 @@ public interface RecordService {
     List<Object> getNotApproval(int page);
 
     List<Object> getPersonalRecordList(int userId, int page, String status);
+    Integer returnApproval(int recordId);
 }

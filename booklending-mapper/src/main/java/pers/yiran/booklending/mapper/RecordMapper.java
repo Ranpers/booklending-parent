@@ -18,5 +18,6 @@ public interface RecordMapper {
     List<RecordModel> getNotApproval();
     Integer getRecordStatus(int recordId);
     Integer returnBook(int userId, int recordId);
-    Integer addRecord();
+    Integer returnApproval(int recordId);
+    RecordModel getRecordById(int recordId);
 }

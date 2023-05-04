@@ -4,6 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pers.yiran.booklending.entity.Book;
+import pers.yiran.booklending.mapper.BookMapper;
 import pers.yiran.booklending.mapper.RecordMapper;
 import pers.yiran.booklending.model.RecordModel;
 import pers.yiran.booklending.service.RecordService;
@@ -17,11 +19,18 @@ import java.util.List;
 @Service
 public class RecordServiceImpl implements RecordService {
     private RecordMapper recordMapper;
+    private BookMapper bookMapper;
 
     @Autowired
-    public void setRecordMapper(RecordMapper recordMapper){
+    public void setRecordMapper(RecordMapper recordMapper) {
         this.recordMapper = recordMapper;
     }
+
+    @Autowired
+    public void setBookMapper(BookMapper bookMapper) {
+        this.bookMapper = bookMapper;
+    }
+
     @Override
     public List<Object> getRecordList(int pageNum) {
         List<Object> list = new ArrayList<>();
@@ -52,7 +61,7 @@ public class RecordServiceImpl implements RecordService {
         List<Object> list = new ArrayList<>();
         Page<RecordModel> page = PageHelper.startPage(pageNum, 8);
         List<RecordModel> recordModels;
-        if(status == null){
+        if (status == null) {
             recordModels = recordMapper.getPersonalRecordList(userId);
         } else {
             recordModels = recordMapper.getPersonalNotReturnedList(userId);
@@ -60,5 +69,15 @@ public class RecordServiceImpl implements RecordService {
         list.add(recordModels);
         list.add(page.getPages());
         return list;
+    }
+
+    @Override
+    public Integer returnApproval(int recordId) {
+        if(recordMapper.returnApproval(recordId) == 1){
+            RecordModel recordModel = recordMapper.getRecordById(recordId);
+            Book book = recordModel.getBook();
+            return bookMapper.updateBookNum(book.getId(), book.getRemainNum() + 1);
+        }
+        return 0;
     }
 }

@@ -22,7 +22,7 @@
                     <td th:text="${record.borrowDate}"></td>
                     <td th:text="${record.remandDate}"></td>
                     <td>
-                        <button type="button" class="btn btn-success approval-ass"
+                        <button type="button" class="btn btn-success approval-pass"
                                 th:data-recordid="${record.id}">通过
                         </button>
                     </td>
@@ -32,4 +32,25 @@
         </div>
     </div>
 </div>
+<script>
+    $('.approval-pass').click(function () {
+        const recordId = $(this).attr("data-recordid");
+        $.ajax({
+            url: "/booklending/record/approval/" + recordId,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                if (res === 'update_success') {
+                    changePage("/booklending/record/not_approval/", currentPage);
+                } else if (res === "no_permissions") {
+                    $(window).location.href = '/booklending/permission/no_permissions';
+                }
+            },
+            error: function () {
+                alert("服务器走丢了，请稍候~");
+            }
+        })
+    })
+</script>
 <script th:src="@{/js/records.js}"></script>
